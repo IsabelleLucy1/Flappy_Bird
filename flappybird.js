@@ -99,7 +99,7 @@ function update() {
 
         //Updates score each pipe it passes
         if (!pipe.passed && bird.x > pipe.x + pipe.width){
-            score += 0.5;
+            score += 0.5; //2 pipes = 1 point
             pipe.passed = true;
 
         }
@@ -107,12 +107,26 @@ function update() {
             gameOver = true;
         }
 
+    
     }
 
+    //clears the pipes when off screen
+    //for memory issues
+
+    //checks the pipes that are off the canvas
+    while (pipeArray.length > 0 && pipeArray[0].x < -pipeWidth)
+    {
+        pipeArray.shift();
+        //removes first element from the right
+    }
+    //displays the score
     context.fillStyle = "White";
     context.font = "45px sans-serif";
     context.fillText("score: " + score, 5, 45);
 
+    if (gameOver) {
+        context.fillText("GAME OVER", 5 , 90);
+    }
 }
 
 function placePipes() {
@@ -150,6 +164,13 @@ function moveBird(e) {
     if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
         //jump
         VelocityY = -6;
+        //reset game default settings
+        if(gameOver){
+            bird.y = birdY;
+            pipeArray = [];
+            score = 0;
+            gameOver = false;
+        }
     }
 
 }
