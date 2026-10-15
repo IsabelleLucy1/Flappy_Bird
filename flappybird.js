@@ -37,7 +37,7 @@ let VelocityY = 0;//bird jump speed
 let gravity = 0.4;
 
 let gameOver = false;
-
+let score = 0;
 
 //sets the dimensions for the background
 window.onload = function() {
@@ -97,11 +97,22 @@ function update() {
         pipe.x += VelocityX;//shifts the pipe each second
         context.drawImage(pipe.image, pipe.x, pipe.y, pipe.width, pipe.height);
 
+        //Updates score each pipe it passes
+        if (!pipe.passed && bird.x > pipe.x + pipe.width){
+            score += 0.5;
+            pipe.passed = true;
+
+        }
         if (detectCollision(bird, pipe)){
             gameOver = true;
         }
 
     }
+
+    context.fillStyle = "White";
+    context.font = "45px sans-serif";
+    context.fillText("score: " + score, 5, 45);
+
 }
 
 function placePipes() {
