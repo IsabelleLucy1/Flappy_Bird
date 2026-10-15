@@ -29,7 +29,7 @@ let pipeX = boardWidth;
 let pipeY = 0;
 
 let topPipeImg;
-
+let bottomPipeImg;
 
 //physics
 let VelocityX = -2;//amount pipes will move
@@ -50,14 +50,17 @@ window.onload = function() {
     birdImg.onload = function() {
         context.drawImage(birdImg, bird.x ,bird.y ,bird.width ,bird.height)
     }
+
     //loads the top pipe image
     topPipeImg = new Image();
     topPipeImg.src = "./toppipe.png";
-
+    
+    //loads the bottom pipe image
+    bottomPipeImg = new Image();
+    bottomPipeImg.src = "./bottompipe.png";
     requestAnimationFrame(update);
     placePipes();
     setInterval(placePipes, 1500); //every 1.5 seconds new pipe
-
 
 }
 //loops or updates the canvas
@@ -79,15 +82,28 @@ function update() {
 }
 
 function placePipes() {
+    //
+    let randomPipeY = pipeY - pipeHeight/4 - Math.random()*(pipeHeight/2);
+    let openingSpace = board.height/4;
 
     let topPipe = {
         image: topPipeImg,
         x : pipeX,
-        y : pipeY,
+        y : randomPipeY,
         width : pipeWidth,
         height : pipeHeight,
         passed : false
     }
 
     pipeArray.push(topPipe);
+
+    let bottomPipe = {
+        image : bottomPipeImg,
+        x : pipeX,
+        y : randomPipeY + pipeHeight + openingSpace,
+        width : pipeWidth,
+        height : pipeHeight,
+        passed: false
+    }
+    pipeArray.push(bottomPipe);
 }
