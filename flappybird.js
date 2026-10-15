@@ -87,6 +87,9 @@ function update() {
 
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
+    if (bird.y > board.height){
+        gameOver = true;
+    }
     //pipes
 
     for (let i = 0; i < pipeArray.length; i++){
