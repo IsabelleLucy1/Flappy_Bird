@@ -32,7 +32,9 @@ let topPipeImg;
 let bottomPipeImg;
 
 //physics
-let VelocityX = -2;//amount pipes will move
+let VelocityX = -2;//amount pipes will move left while running
+let VelocityY = 0;//bird jump speed
+let gravity = 0.4;
 
 
 //sets the dimensions for the background
@@ -59,17 +61,21 @@ window.onload = function() {
     bottomPipeImg = new Image();
     bottomPipeImg.src = "./bottompipe.png";
     requestAnimationFrame(update);
+
     placePipes();
     setInterval(placePipes, 1500); //every 1.5 seconds new pipe
 
+    document.addEventListener("keydown", moveBird);
 }
 //loops or updates the canvas
 function update() {
     requestAnimationFrame(update);
     //clears the previous frame
     context.clearRect(0,0, board.width, board.height);
+    
     //bird update
-
+    VelocityY += gravity;
+    bird.y += VelocityY;
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
     //pipes
@@ -106,4 +112,12 @@ function placePipes() {
         passed: false
     }
     pipeArray.push(bottomPipe);
+}
+
+function moveBird(e) {
+    if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
+        //jump
+        VelocityY = -6;
+    }
+
 }
