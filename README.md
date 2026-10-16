@@ -20,7 +20,8 @@ A recreation of the classic Flappy Bird game built with JavaScript, HTML5 Canvas
 
 ### Gameplay
 
-[Add screenshot here]
+<img width="263" height="470" alt="image" src="https://github.com/user-attachments/assets/8d8e3fb6-3c0d-4edd-8f69-9659e487a4eb" />
+
 
 ### Game Over Screen
 
