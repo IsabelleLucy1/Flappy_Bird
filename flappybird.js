@@ -39,6 +39,13 @@ let gravity = 0.4;
 let gameOver = false;
 let score = 0;
 let pipeInterval;
+let highestScore = 0;
+
+function updateHighestScore() {
+    if (score > highestScore) {
+        highestScore = score;
+    }
+}
 
 //sets the dimensions for the background
 window.onload = function() {
@@ -103,6 +110,7 @@ function update() {
         if (!pipe.passed && bird.x > pipe.x + pipe.width){
             score += 0.5; //2 pipes = 1 point
             pipe.passed = true;
+            updateHighestScore();
 
         }
         if (detectCollision(bird, pipe)){
@@ -121,10 +129,11 @@ function update() {
         pipeArray.shift();
         //removes first element from the right
     }
-    //displays the score
+    //displays the scores
     context.fillStyle = "White";
-    context.font = "45px sans-serif";
-    context.fillText("score: " + score, 5, 45);
+    context.font = "30px sans-serif";
+    context.fillText("Score: " + score, 10, 32);
+    context.fillText("Best: " + highestScore, 10, 62);
 
     if (gameOver) {
         drawGameOver();
@@ -139,8 +148,11 @@ function drawGameOver() {
     context.textAlign = "center";
     context.font = "bold 36px sans-serif";
     context.fillText("GAME OVER", board.width / 2, board.height / 2 - 20);
-    context.font = "20px sans-serif";
-    context.fillText("Press X to restart", board.width / 2, board.height / 2 + 25);
+    context.font = "22px sans-serif";
+    context.fillText("Score: " + score, board.width / 2, board.height / 2 + 20);
+    context.fillText("Best: " + highestScore, board.width / 2, board.height / 2 + 52);
+    context.font = "18px sans-serif";
+    context.fillText("Press X to restart", board.width / 2, board.height / 2 + 88);
     context.textAlign = "start";
 }
 
@@ -200,7 +212,7 @@ function moveBird(e) {
         return;
     }
 
-    if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
+    if (e.code === "Space" || e.code === "ArrowUp") {
         VelocityY = -6;
     }
 

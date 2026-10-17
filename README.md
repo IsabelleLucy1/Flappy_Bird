@@ -7,6 +7,7 @@ A recreation of the classic Flappy Bird game built with JavaScript, HTML5 Canvas
 - Smooth bird movement with gravity and jumping mechanics
 - Randomly generated pipes
 - Real-time score tracking
+- High-score tracking during the current play session
 - Collision detection
 - Game over screen
 - Restart functionality
@@ -81,7 +82,6 @@ The game uses a continuous game loop to update object positions and render frame
 
 ## Future Improvements
 
-- High score saving using Local Storage
 - Sound effects and background music
 - Difficulty scaling
 - Multiple bird skins
