@@ -10,6 +10,7 @@ A recreation of the classic Flappy Bird game built with JavaScript, HTML5 Canvas
 - High-score tracking during the current play session
 - Collision detection
 - Game over screen
+- Easy, normal, and hard difficulty options with different pipe intervals
 - Restart functionality
 - Lightweight and browser-based
 
@@ -58,6 +59,7 @@ Open `index.html` in your preferred browser.
 | Jump | Spacebar |
 | Jump | E |
 | Restart | x |
+| Select difficulty (game over screen) | Easy: 2 seconds, Normal: 1.5 seconds, Hard: 1 second |
 
 ## Project Structure
 
@@ -83,7 +85,6 @@ The game uses a continuous game loop to update object positions and render frame
 ## Future Improvements
 
 - Sound effects and background music
-- Difficulty scaling
 - Multiple bird skins
 - Online leaderboard
 

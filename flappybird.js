@@ -40,6 +40,9 @@ let gameOver = false;
 let score = 0;
 let pipeInterval;
 let highestScore = 0;
+let pipeSpawnInterval = 1500;
+let selectedMode = "Normal";
+let difficultyButtons;
 
 function updateHighestScore() {
     if (score > highestScore) {
@@ -53,6 +56,17 @@ window.onload = function() {
     board.height = boardHeight;
     board.width = boardWidth;
     context = board.getContext("2d"); //used for drawing on board
+    difficultyButtons = document.getElementById("difficulty-buttons");
+    difficultyButtons.addEventListener("click", function(event) {
+        const button = event.target.closest("button[data-interval]");
+        if (!button || !gameOver) {
+            return;
+        }
+
+        pipeSpawnInterval = Number(button.dataset.interval);
+        selectedMode = button.dataset.mode;
+        restartGame();
+    });
 //adds the bird into the canvas
     
 
@@ -134,6 +148,7 @@ function update() {
     context.font = "30px sans-serif";
     context.fillText("Score: " + score, 10, 32);
     context.fillText("Best: " + highestScore, 10, 62);
+    drawModeIndicator();
 
     if (gameOver) {
         drawGameOver();
@@ -153,6 +168,15 @@ function drawGameOver() {
     context.fillText("Best: " + highestScore, board.width / 2, board.height / 2 + 52);
     context.font = "18px sans-serif";
     context.fillText("Press X to restart", board.width / 2, board.height / 2 + 88);
+    context.textAlign = "start";
+    drawModeIndicator();
+}
+
+function drawModeIndicator() {
+    context.fillStyle = "white";
+    context.font = "16px sans-serif";
+    context.textAlign = "right";
+    context.fillText("Mode: " + selectedMode, board.width - 10, 28);
     context.textAlign = "start";
 }
 
@@ -189,25 +213,31 @@ function placePipes() {
 
 function startPipeTimer() {
     clearInterval(pipeInterval);
-    pipeInterval = setInterval(placePipes, 1500);
+    pipeInterval = setInterval(placePipes, pipeSpawnInterval);
 }
 
 function endGame() {
     gameOver = true;
     clearInterval(pipeInterval);
     pipeInterval = undefined;
+    difficultyButtons.hidden = false;
+}
+
+function restartGame() {
+    bird.y = birdY;
+    VelocityY = 0;
+    pipeArray = [];
+    score = 0;
+    gameOver = false;
+    difficultyButtons.hidden = true;
+    placePipes();
+    startPipeTimer();
 }
 
 function moveBird(e) {
     if (gameOver) {
         if (e.code === "KeyX") {
-            bird.y = birdY;
-            VelocityY = 0;
-            pipeArray = [];
-            score = 0;
-            gameOver = false;
-            placePipes();
-            startPipeTimer();
+            restartGame();
         }
         return;
     }

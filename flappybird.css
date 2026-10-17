@@ -1,9 +1,81 @@
 body {
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
     text-align: center;
-
+    background-color: #fff4fa;
+    margin: 8px;
 }
+
+#game-container {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
 #board {
     background-image: url("./flappybirdbggirl.png");
+    display: block;
+    width: min(360px, calc((100vh - 16px) * 9 / 16), calc(100vw - 16px));
+    height: auto;
+}
 
+#difficulty-buttons {
+    position: absolute;
+    right: 10px;
+    bottom: 14px;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    line-height: normal;
+}
+
+#difficulty-buttons[hidden] {
+    display: none;
+}
+
+#difficulty-buttons button {
+    min-width: 0;
+    flex: 1;
+    padding: 9px 4px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 14px;
+    color: #512b48;
+    font: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(70, 36, 66, 0.3);
+    transition: transform 120ms ease, filter 120ms ease;
+}
+
+#difficulty-buttons button:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+}
+
+#difficulty-buttons button:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
+#difficulty-buttons button:nth-child(1) {
+    background-color: #f8b8cf;
+}
+
+#difficulty-buttons button:nth-child(2) {
+    background-color: #d8b9f2;
+}
+
+#difficulty-buttons button:nth-child(3) {
+    background-color: #ffc99f;
+}
+
+#difficulty-buttons span,
+#difficulty-buttons small {
+    display: block;
+}
+
+#difficulty-buttons small {
+    margin-top: 3px;
+    font-size: 10px;
 }
