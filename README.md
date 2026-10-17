@@ -27,7 +27,7 @@ A recreation of the classic Flappy Bird game built with JavaScript, HTML5 Canvas
 
 ### Game Over Screen
 
-[Add screenshot here]
+<img width="272" height="480" alt="image" src="https://github.com/user-attachments/assets/f1b3c185-47c3-4053-9fb8-191960def1df" />
 
 ## Technologies Used
 
@@ -41,7 +41,7 @@ A recreation of the classic Flappy Bird game built with JavaScript, HTML5 Canvas
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/flappy-bird-clone.git
+git clone https://github.com/IsabelleLucy1/flappy-bird-clone.git
 ```
 
 Navigate to the project directory:
@@ -57,7 +57,7 @@ Open `index.html` in your preferred browser.
 | Action | Input |
 |---------|--------|
 | Jump | Spacebar |
-| Jump | E |
+| Jump | Up Arrow |
 | Restart | x |
 | Select difficulty (game over screen) | Easy: 2 seconds, Normal: 1.5 seconds, Hard: 1 second |
 
@@ -70,10 +70,10 @@ flappy-bird-clone/
 ├── style.css
 ├── script.js
 ├── assets/
-│   ├── flappybird.png
+│   ├── flappybirdgirl.png
 │   ├── flappybirdbottompipe.png
 │   ├── flappybirdtoppipe.png
-│   └── background.png
+│   └── flappybirdbggirl.png
 │
 └── README.md
 ```
@@ -87,6 +87,7 @@ The game uses a continuous game loop to update object positions and render frame
 - Sound effects and background music
 - Multiple bird skins
 - Online leaderboard
+- Playernames
 
 ## Learning Outcomes
 
