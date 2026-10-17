@@ -38,6 +38,7 @@ let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
+let pipeInterval;
 
 //sets the dimensions for the background
 window.onload = function() {
@@ -65,7 +66,7 @@ window.onload = function() {
     requestAnimationFrame(update);
 
     placePipes();
-    setInterval(placePipes, 1500); //every 1.5 seconds new pipe
+    startPipeTimer();
 
     document.addEventListener("keydown", moveBird);
 }
@@ -75,6 +76,7 @@ function update() {
     requestAnimationFrame(update);
 
     if (gameOver) {
+        drawGameOver();
         return;
     }
     //clears the previous frame
@@ -88,7 +90,7 @@ function update() {
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
     if (bird.y > board.height){
-        gameOver = true;
+        endGame();
     }
     //pipes
 
@@ -104,7 +106,7 @@ function update() {
 
         }
         if (detectCollision(bird, pipe)){
-            gameOver = true;
+            endGame();
         }
 
     
@@ -125,8 +127,21 @@ function update() {
     context.fillText("score: " + score, 5, 45);
 
     if (gameOver) {
-        context.fillText("GAME OVER", 5 , 90);
+        drawGameOver();
     }
+}
+
+function drawGameOver() {
+    context.fillStyle = "rgba(0, 0, 0, 0.65)";
+    context.fillRect(0, 0, board.width, board.height);
+
+    context.fillStyle = "white";
+    context.textAlign = "center";
+    context.font = "bold 36px sans-serif";
+    context.fillText("GAME OVER", board.width / 2, board.height / 2 - 20);
+    context.font = "20px sans-serif";
+    context.fillText("Press X to restart", board.width / 2, board.height / 2 + 25);
+    context.textAlign = "start";
 }
 
 function placePipes() {
@@ -160,17 +175,33 @@ function placePipes() {
     pipeArray.push(bottomPipe);
 }
 
+function startPipeTimer() {
+    clearInterval(pipeInterval);
+    pipeInterval = setInterval(placePipes, 1500);
+}
+
+function endGame() {
+    gameOver = true;
+    clearInterval(pipeInterval);
+    pipeInterval = undefined;
+}
+
 function moveBird(e) {
-    if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
-        //jump
-        VelocityY = -6;
-        //reset game default settings
-        if(gameOver){
+    if (gameOver) {
+        if (e.code === "KeyX") {
             bird.y = birdY;
+            VelocityY = 0;
             pipeArray = [];
             score = 0;
             gameOver = false;
+            placePipes();
+            startPipeTimer();
         }
+        return;
+    }
+
+    if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
+        VelocityY = -6;
     }
 
 }
